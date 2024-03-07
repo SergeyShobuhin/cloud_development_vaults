@@ -1,0 +1,13 @@
+{
+  "autoload": {
+    "psr-4": {
+      "controller\\": "controller/",
+      "Layout\\": "layout/"
+    }
+  },
+  "require": {
+    "ext-pdo": "*",
+    "ext-mysqli": "*",
+    "phpmailer/phpmailer": "^6.8"
+  }
+}

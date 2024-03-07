@@ -1,0 +1,11 @@
+.gitignore
+.idea
+vendor/
+config/bd.php
+
+
+
+*.jpg
+*.jpeg
+*.png
+

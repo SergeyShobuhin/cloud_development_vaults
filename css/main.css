@@ -1,0 +1,16 @@
+* {
+    background: aqua;
+}
+
+body {
+    background: aqua;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    background: blue;
+    color: red;
+}
+
