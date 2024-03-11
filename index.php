@@ -36,9 +36,6 @@ $urlList = [
     '/user/{id}' => [
         'GET' => 'User::profile',
     ],
-//    '/user/{id}' => [
-//        'GET' => 'User::resetPassword',
-//    ],
 
     '/admin/user' => [
         'GET' => 'Admin::list',
@@ -52,7 +49,6 @@ $urlList = [
     '/file/load' => [
         'GET' => 'File::load',
         'POST' => 'File::upload',
-//        'DELETE' => 'File::delete'
     ],
     '/file/download' => [
         'GET' => 'File::download',
@@ -60,6 +56,7 @@ $urlList = [
     '/file/delete' => [
         'DELETE' => 'File::delete',
     ],
+
     '/password/forgot' => [
         'POST' => 'Password::send'
     ],

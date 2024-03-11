@@ -1,24 +1,13 @@
 <?php
-/**
-@var array $user
- */
-
-echo '</br>';
-//print_r($user);
-//print_r($_FILES);
-//print_r($_SESSION['user']);
-
 // редирект на профиль по ID  ---  чушь какая то!!!! как сделать на всех страницах
 if (!$_SESSION['user']) {
     header('Location: /user/login');
     exit();
 }
 
-
-if($_SESSION['user']['id'] !== $user['id']) {
+if ($_SESSION['user']['id'] !== $user['id']) {
     header("Location: /user/{$_SESSION['user']['id']}");
 }
-
 ?>
 
 <!--Форма профиля пользователя или администратора-->
@@ -64,4 +53,3 @@ if($_SESSION['user']['id'] !== $user['id']) {
     ?>
 </div>
 </body>
-

@@ -1,10 +1,5 @@
 <!--форма замены пароля-->
 
-<?php
-//session_start();
-//print_r($_SERVER);
-//?>
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -27,7 +22,7 @@
             <label for="confirmPassword">Подтвердите пароль</label>
         </div>
         <button type="submit" class="btn btn-primary" name="authorization">Отправить</button>
-         <?php
+        <?php
         if ($error) {
             echo '<p style="border: 4px solid red">' . $error . '</p>';
         }

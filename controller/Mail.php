@@ -35,7 +35,7 @@ class Mail
 
             //Content
             $mail->isHTML(true);                                  //Set email format to HTML
-            $mail->Subject = 'Сброс пароля у ' . $email ;
+            $mail->Subject = 'Сброс пароля у ' . $email;
             $mail->Body = 'Ваш новый пароль:<br>' . $generateResetToken . '<br>Не забудьте поменять его в личном кабинете';
             $mail->AltBody = 'Произошла смена пароля у ' . $email;
 

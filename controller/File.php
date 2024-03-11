@@ -17,32 +17,23 @@ class File extends BaseController
 //    загружаем файлы
     public function upload(): void
     {
+
         // формируем имя с ID пользователя для дальнейшей индификации его
         $id = $_SESSION['user']['id'];
         $storageName = $_FILES['file']['name'];
         $tmpName = $_FILES['file']['tmp_name'];
         $fileTemp = $this->storageDir . $id . '_' . $storageName;
 
-//        print_r($_SESSION);
-//        print_r($fileTemp);
-
         move_uploaded_file($tmpName, $fileTemp);
         header("Location: /user/$id");
-
-//        $this->setLayout('login')->render([
-//            'error' => 'не удалось загрузить файл'
-//        ]);
     }
 
     public function load(): void
     {
+
         // формируем имя с ID пользователя для дальнейшей индификации его
         $files = scandir($this->storageDir);
 
-//        if($files) {
-//            print_r($files);
-////            print_r($_SESSION['user']['id']);
-//        }
         $this->setLayout('load')->render([
             'file' => $files,
             'currentUserId' => $_SESSION['user']['id']
@@ -52,11 +43,9 @@ class File extends BaseController
     //показываем файлы
     public function getLoadFiles(): void
     {
+
         $files = scandir($this->storageDir);
 
-//        if($files) {
-//            print_r($files);
-//        }
         $this->setLayout('load')->render([
             'file' => $files
         ]);
@@ -72,8 +61,6 @@ class File extends BaseController
         $filePath = $this->storageDir . $fileName;
         unlink($filePath);
         header("Location: /user/$id");
-
-
     }
 
     // скачиваем файл
@@ -92,7 +79,6 @@ class File extends BaseController
         header('Content-Disposition: attachment; filename="' . basename($filePath) . '"');
 
         echo file_get_contents($filePath);
-//        header('Location: /file/load');
     }
 }
 

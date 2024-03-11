@@ -6,12 +6,11 @@ use PDO;
 
 class Admin extends BaseController
 {
-    private $connection;
+    private PDO $connection;
 
     // собираем конструктор подключения к БД
     public function __construct()
     {
-
         $this->connection = (new Connectbd())->getConnection();
     }
 
@@ -35,7 +34,7 @@ class Admin extends BaseController
     public function update($id): void
     {
 //        $_GET['is_admin'] = isset($_GET['is_admin']) ? 1 : 0;         //переделать перед сдачей
-        if(isset($_GET['is_admin'])) {
+        if (isset($_GET['is_admin'])) {
             $_GET['is_admin'] = 0;
         } else {
             $_GET['is_admin'] = 1;
@@ -83,7 +82,6 @@ class Admin extends BaseController
     // поиск пользователя
     public function show($id)
     {
-        $id = $id;
         $email = $id;
 
         $statement = $this->connection->prepare("SELECT * FROM users WHERE `id` = :id OR `email` LIKE :id"); // костыль какой то, для поиска по почте
@@ -93,17 +91,10 @@ class Admin extends BaseController
         ]);
         $user = $statement->fetch(PDO::FETCH_ASSOC);
 
-        if($user) {
-            print_r($user);
-            echo "<br/> Admin->show: это id: {$user['id']} или почта: {$user['email']}";
-        }
         $this->setLayout('show')->render([
             'error' => 'не удалось найти пользователя'
         ]);
 
         return $user;
     }
-
-    // сброс пароля
-
 }

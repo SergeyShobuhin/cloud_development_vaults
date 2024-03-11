@@ -50,7 +50,6 @@ class Password extends BaseController
             } else {
 
                 header('Location: /user');
-
             }
 
         } else {
@@ -61,7 +60,7 @@ class Password extends BaseController
         }
     }
 
-    public function send()
+    public function send(): void
     {
 
         $email = $_POST['email'] ?? null;

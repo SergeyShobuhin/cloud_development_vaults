@@ -1,7 +1,4 @@
-<?php
-echo 'ЭТО РЕГИСТРАЦИЯ';
-print_r($_SESSION);
-?>
+<!--Форма регистрации-->
 
 <!doctype html>
 <html lang="en">
@@ -38,7 +35,6 @@ print_r($_SESSION);
         if ($error) {
             echo '<p style="border: 4px solid red">' . $error . '</p>';
         }
-
         ?>
         <button type="submit" class="btn btn-primary" name="register">Зарегистрироваться</button>
         <div class="mb-3"> Уже зарегистрированы? - <a href="/user/login">авторизуйтесь</a></div>

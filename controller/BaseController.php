@@ -14,7 +14,7 @@ class BaseController
         return $this;
     }
 
-    protected function render(array $params = [])
+    protected function render(array $params = []): void
     {
         $className = get_class($this);      // Возвращает имя класса, к которому принадлежит объект
         $classNameParts = explode('\\', $className);        //Разбивает строку с помощью разделителя
@@ -23,5 +23,4 @@ class BaseController
         extract($params);       //Импортирует переменные из массива в текущую таблицу символов
         require_once $layoutPath;       // подключает файл из layout
     }
-
 }

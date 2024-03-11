@@ -6,7 +6,8 @@ use PDO;
 
 class User extends BaseController
 {
-    private $connection;
+
+    private PDO $connection;
 
     public function __construct()
     {
@@ -16,6 +17,7 @@ class User extends BaseController
     // регистрация пользователя
     public function add(): void
     {
+
         $email = $_POST['email'];
         $fullName = $_POST['full_name'];
         $password = md5($_POST['password']);
@@ -34,6 +36,7 @@ class User extends BaseController
             $this->setLayout('registration')->render([
                 'error' => 'пароли не совпадают'
             ]);
+
         } else {
 
             $statement = $this->connection->prepare(
@@ -47,13 +50,9 @@ class User extends BaseController
                 'is_admin' => $admin
             ]);
 
-//            if(session_status() !== PHP_SESSION_ACTIVE) {//
             if ($_SESSION['user']) {
                 header("Location: /admin/user");
             } else {
-//                $this->setLayout('login')->render([
-//                    'error' => "Успешно зарегестрировались {$email}"
-//                ]);
                 header('Location: /user/login');
             }
         }
@@ -110,10 +109,6 @@ class User extends BaseController
         ]);
         $user = $statement->fetch(PDO::FETCH_ASSOC);
 
-//        if($user) {
-//            print_r($user);
-//            echo 'это из класса юзер';
-//        }
         $this->setLayout('profile')->render(['user' => $user]);
     }
 
@@ -123,6 +118,4 @@ class User extends BaseController
         unset($_SESSION['user']);
         header('Location: /user/login');
     }
-
 }
-
