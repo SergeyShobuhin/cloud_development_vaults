@@ -44,7 +44,7 @@ if (!$_SESSION['user']) {
             }
 
             echo "<tr class='list-group-item-action list-group-item-warning'>";
-            echo "<form method='put' action='/admin/user/{$user['id']}'>";
+            echo "<form method='PUT' action='/admin/user/{$user['id']}'>";
             echo "<td > " . $user['id'] . "</td>";
             echo "<td > <input type='text' name='email' value='" . $user['email'] . "'></td>";
             echo "<td> <input type='text' name='full_name' value='" . $user['full_name'] . "'></td>";
@@ -55,7 +55,7 @@ if (!$_SESSION['user']) {
                 </td>";
 
             echo "</form> 
-                <form method='get' action='/admin/user/{$user['id']}'>
+                <form method='GET' action='/admin/user/{$user['id']}'>
                 <td> 
                     <input class='btn btn-danger' name='action' type='submit' value='Удалить'> 
                     <input name='http_method' type='hidden' value='delete'>
@@ -68,14 +68,19 @@ if (!$_SESSION['user']) {
     </table>
 </div>
 
-<form method="post" action="/user/add">
+<form method="POST" action="/user/add">
     <div>
         <h1>Создать нового пользователя:</h1>
-        <label> Email: <input type="text" name="email"></label>
-        <label> Имя: <input type="text" name="full_name"></label>
-        <label> Пароль: <input type="text" name="password"></label>
-        <label> Пароль ещё раз: <input type="text" name="password_confirm"></label>
-        <label> Администратор? <input type="checkbox" name="is_admin"></label>
+        <label> Email: </label>
+        <input type="text" name="email">
+        <label> Имя: </label>
+        <input type="text" name="full_name">
+        <label> Пароль: </label>
+        <input type="text" name="password">
+        <label> Пароль ещё раз: </label>
+        <input type="text" name="password_confirm">
+        <label> Администратор? </label>
+        <input type="checkbox" name="is_admin">
         <div><input type="submit" name="register" value="Ввести в базу"></div>
     </div>
 </form>

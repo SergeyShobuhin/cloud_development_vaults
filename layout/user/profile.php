@@ -25,7 +25,7 @@ if ($_SESSION['user']['id'] !== $user['id']) {
 <div class="container">
     <!--  тут вывод информации о пользователе  -->
     <nav class="navbar navbar-light bg-light">
-        <form action="/user/logout" method="post">
+        <form action="/user/logout" method="POST">
             <div class="container-fluid">
                 <span class="navbar-brand">Ваш профиль</span>
                 <button class="btn btn-outline-success" type="submit">Выход</button>
@@ -36,7 +36,7 @@ if ($_SESSION['user']['id'] !== $user['id']) {
                 ?>
             </div>
         </form>
-        <form action="/layout/password/newpass.php" method="post">
+        <form action="/layout/password/newpass.php" method="POST">
             <input type="text" class="form-control" placeholder="Введите новый пароль" aria-label="Last name"
                    name="password">
             <button class="btn btn-outline-success" type="submit">Сменить пароль</button>

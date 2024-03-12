@@ -14,10 +14,8 @@ if (!empty($_SESSION)) {
     <link href="/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-
-<!-- Форма авторизации -->
 <div class="container">
-    <form action="/user/authorized" method="post">
+    <form action="/user/authorized" method="POST">
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Email address</label>
             <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp">

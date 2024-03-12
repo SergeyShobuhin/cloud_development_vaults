@@ -23,7 +23,6 @@ $urlList = [
     '/user/add' => [
         'POST' => 'User::add',
     ],
-
     '/user/login' => [
         'GET' => 'User::login',
     ],
@@ -63,8 +62,6 @@ $urlList = [
     '/password/newpass' => [
         'POST' => 'Password::newpassword'
     ],
-
-
     // ещё нужно добавить директорию
 ];
 
@@ -94,7 +91,7 @@ foreach ($urlList as $route => $methods) {
 
     if(!$controllerName || !$controllerMethod) {
 
-        throw new Exception('Возникла чудовищная ошибка, потерялся контроллер😱');
+        throw new \RuntimeException('Возникла чудовищная ошибка, потерялся контроллер😱');
     }
 
     $controllerName = '\controller\\' . $controllerName;
@@ -103,6 +100,13 @@ foreach ($urlList as $route => $methods) {
 
     break;
 }
+
+//if (!$urlList) {
+//
+//    header('Location: /user/login');
+//    exit();
+//
+//}
 
 function pre($str) {
     echo '<pre>';

@@ -12,7 +12,7 @@
 <body>
 <!-- Форма регистрации пользователя -->
 <div class="container">
-    <form action="/user/add" method="post">
+    <form action="/user/add" method="POST">
         <div class="form-floating mb-3">
             <input type="email" class="form-control" name="email" id="floatingInput" placeholder="name@example.com">
             <label for="floatingInput">Email address</label>
