@@ -5,7 +5,7 @@ namespace controller;
 use PDO;
 use PDOException;
 
-class Db
+class Database
 {
     private PDO $connection;
 

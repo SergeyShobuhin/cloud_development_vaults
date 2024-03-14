@@ -1,69 +1,27 @@
-
 <?php
 session_start();
-//print_r($_SESSION);
-
-//if (!empty($_SESSION['user'])) {
-//    header("Location: /user/{$_SESSION['user']['id']}");
-//    die();
-//}
 
 $rootDir = realpath(__DIR__ . '/');
 require_once $rootDir . '/vendor/autoload.php';
 
+$uri = $_SERVER['REQUEST_URI'];
+
+$urlList = require "config/route.php";
+//
+//if (!array_key_exists($_SERVER['REQUEST_URI'], $urlList)) {
+//    $uri = '/user/login';
+////    header('Location: /user/login');
+////    exit();
+//}
+//
+//$requestUri = rtrim($uri, '/');
+
 $requestUri = rtrim($_SERVER['REQUEST_URI'], '/');
+
 $uriParts = explode('?', $requestUri);
 $requestUri = $uriParts[0] ?? $requestUri;
 $requestMethod = strtoupper($_REQUEST['http_method'] ?? $_SERVER['REQUEST_METHOD']);
 
-$urlList = [
-    '/user' => [
-        'GET' => 'User::registration',
-    ],
-    '/user/add' => [
-        'POST' => 'User::add',
-    ],
-    '/user/login' => [
-        'GET' => 'User::login',
-    ],
-    '/user/authorized' => [
-        'POST' => 'User::authorized',
-    ],
-    '/user/logout' => [
-        'POST' => 'User::logout',
-    ],
-    '/user/{id}' => [
-        'GET' => 'User::profile',
-    ],
-
-    '/admin/user' => [
-        'GET' => 'Admin::list',
-    ],
-    '/admin/user/{id}' => [
-        'GET' => 'Admin::show',
-        'DELETE' => 'Admin::delete',
-        'PUT' => 'Admin::update',
-    ],
-
-    '/file/load' => [
-        'GET' => 'File::load',
-        'POST' => 'File::upload',
-    ],
-    '/file/download' => [
-        'GET' => 'File::download',
-    ],
-    '/file/delete' => [
-        'DELETE' => 'File::delete',
-    ],
-
-    '/password/forgot' => [
-        'POST' => 'Password::send'
-    ],
-    '/password/newpass' => [
-        'POST' => 'Password::newpassword'
-    ],
-    // ещё нужно добавить директорию
-];
 
 foreach ($urlList as $route => $methods) {
 
@@ -71,7 +29,7 @@ foreach ($urlList as $route => $methods) {
     $routePattern = "!^$routePattern$!";
     preg_match($routePattern, $requestUri, $matches);
 
-    if(!$matches || empty($methods[$requestMethod])){
+    if (!$matches || empty($methods[$requestMethod])) {
         continue;
     }
 
@@ -89,7 +47,7 @@ foreach ($urlList as $route => $methods) {
 
     list($controllerName, $controllerMethod) = explode('::', $methods[$requestMethod]);
 
-    if(!$controllerName || !$controllerMethod) {
+    if (!$controllerName || !$controllerMethod) {
 
         throw new \RuntimeException('Возникла чудовищная ошибка, потерялся контроллер😱');
     }
@@ -101,14 +59,8 @@ foreach ($urlList as $route => $methods) {
     break;
 }
 
-//if (!$urlList) {
-//
-//    header('Location: /user/login');
-//    exit();
-//
-//}
-
-function pre($str) {
+function pre($str)
+{
     echo '<pre>';
     print_r($str);
     echo '</pre>';

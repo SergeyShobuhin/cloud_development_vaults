@@ -13,7 +13,7 @@ class Mail
     // функция отправки почты через библиотеку PHPMailer
     public function sendByMail($email, $generateResetToken): void
     {
-        $config = require "config/bd.php";
+        $config = require "config/config.php";
 
         //Create an instance; passing `true` enables exceptions
         $mail = new PHPMailer(true);

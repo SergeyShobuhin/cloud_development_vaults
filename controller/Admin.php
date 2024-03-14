@@ -8,27 +8,10 @@ class Admin extends BaseController
 {
     private PDO $connection;
 
-    // собираем конструктор подключения к БД
     public function __construct()
     {
-        $this->connection = (new Connectbd())->getConnection();
+        $this->connection = (new Database())->getConnection();
     }
-
-//    // создание пользователя с правами администратора
-//    public function create($email, $fullName, $password, $admin)
-//    {
-//        $date = date('Y-m-d H:i:s');
-//        $statement = $this->connection->prepare(
-//            "INSERT INTO users (`id`, `email`, `full_name`, `password`, `date_created`, `is_admin`) VALUES (NULL, :email, :full_name, :password, :date, :is_admin)"
-//        );
-//        $statement->execute([
-//            'email' => $email,
-//            'password' => $password,
-//            'full_name' => $fullName,
-//            'date' => $date,
-//            'is_admin' => $admin
-//        ]);
-//    }
 
     // редактирование пользователя
     public function update($id): void

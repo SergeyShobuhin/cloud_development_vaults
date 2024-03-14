@@ -5,7 +5,7 @@ return [
         'host' => 'mysql',
         'port' => 3306,
         'charset' => 'utf8',
-        'bdname' => 'EXAMPLE',
+        'dbname' => 'EXAMPLE',
         'username' => 'root',
         'password' => 'root',
     ],

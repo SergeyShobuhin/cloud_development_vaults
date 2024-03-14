@@ -14,7 +14,7 @@ class Password extends BaseController
 
         $this->user = new Admin();
         $this->mail = new Mail();
-        $this->connection = (new Connectbd())->getConnection();
+        $this->connection = (new Database())->getConnection();
 
     }
 

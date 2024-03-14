@@ -11,7 +11,7 @@ class User extends BaseController
 
     public function __construct()
     {
-        $this->connection = (new Connectbd())->getConnection();
+        $this->connection = (new Database())->getConnection();
     }
 
     // регистрация пользователя
