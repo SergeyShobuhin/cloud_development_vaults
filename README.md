@@ -5,4 +5,4 @@
 - восстановление пароля реализовано через phpmailer
 
 ### Заметки
-в config/bddev.php переименовать в bd.php и прописать почту
+в config/config.exemple.php переименовать в config.php и прописать почту
