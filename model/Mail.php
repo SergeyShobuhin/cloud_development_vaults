@@ -2,7 +2,7 @@
 
 //Адрес получателя захардкожен, чтобы тестить изменения паролей БД
 
-namespace controller;
+namespace model;
 
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;

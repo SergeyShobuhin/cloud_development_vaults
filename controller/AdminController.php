@@ -2,20 +2,22 @@
 
 namespace controller;
 
-use PDO;
+use model\User;
 
-class Admin extends BaseController
+class AdminController extends BaseController
 {
-    private PDO $connection;
+
+    private User $user;
 
     public function __construct()
     {
-        $this->connection = (new Database())->getConnection();
+        $this->user = new User();
     }
 
     // редактирование пользователя
     public function update($id): void
     {
+
 //        $_GET['is_admin'] = isset($_GET['is_admin']) ? 1 : 0;         //переделать перед сдачей
         if (isset($_GET['is_admin'])) {
             $_GET['is_admin'] = 0;
@@ -31,20 +33,16 @@ class Admin extends BaseController
             'is_admin' => $_GET['is_admin'],
         ];
 
-        $statementUpdate = $this->connection->prepare(
-            "UPDATE users SET email = :email, password = :password, full_name = :full_name, is_admin = :is_admin, id = :id WHERE id = :id"
-        );
-        $statementUpdate->execute($data);
+        $this->user->update($data);
         header('Location: /admin/user');
     }
 
     // удаление пользователя
     public function delete($id): void
     {
-        $id = (int)$id;
 
-        $statementDelete = $this->connection->prepare("DELETE FROM `users` WHERE `users`.`id` = :id");
-        $statementDelete->execute(['id' => $id]);
+        $id = (int)$id;
+        $this->user->delete($id);
 
         header('Location: /admin/user');
     }
@@ -52,9 +50,8 @@ class Admin extends BaseController
     // список пользователей
     public function list(): void
     {
-        $statement = $this->connection->prepare("SELECT * FROM users");
-        $statement->execute();
-        $users = $statement->fetchall(PDO::FETCH_ASSOC);
+
+        $users = $this->user->list();
 
         $this->setLayout('list')->render([
             'users' => $users,
@@ -65,14 +62,8 @@ class Admin extends BaseController
     // поиск пользователя
     public function show($id)
     {
-        $email = $id;
 
-        $statement = $this->connection->prepare("SELECT * FROM users WHERE `id` = :id OR `email` LIKE :id"); // костыль какой то, для поиска по почте
-        $statement->execute([
-            'id' => $id,
-            'email' => $email,
-        ]);
-        $user = $statement->fetch(PDO::FETCH_ASSOC);
+        $user = $this->user->show($id);
 
         $this->setLayout('show')->render([
             'error' => 'не удалось найти пользователя'

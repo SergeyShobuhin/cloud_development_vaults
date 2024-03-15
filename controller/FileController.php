@@ -2,7 +2,7 @@
 
 namespace controller;
 
-class File extends BaseController
+class FileController extends BaseController
 {
     private string $storageDir;
 

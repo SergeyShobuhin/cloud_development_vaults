@@ -2,31 +2,18 @@
 
 namespace controller;
 
-class Password extends BaseController
+use model\Password;
+
+class PasswordController extends BaseController
 {
 
-    private Admin $user;
-    private Mail $mail;
-    private \PDO $connection;
+    private AdminController $user;
+    private Password $password;
 
     public function __construct()
     {
-
-        $this->user = new Admin();
-        $this->mail = new Mail();
-        $this->connection = (new Database())->getConnection();
-
-    }
-
-    public function change($email, $newPassword): void
-    {
-
-        // отправляем в БД новый пароль
-        $statementUpdate = $this->connection->prepare("UPDATE users SET password = :password WHERE email = :email");
-        $statementUpdate->execute([
-            'email' => $email,
-            'password' => $newPassword,
-        ]);
+        $this->user = new AdminController();
+        $this->password = new Password();
     }
 
     public function newpassword(): void
@@ -41,17 +28,15 @@ class Password extends BaseController
             if (isset($email)) {
 
                 $newpassword = md5($password);
-                print_r($newpassword);
 
                 // отправляем в БД новый пароль
-                $this->change($email, $newpassword);
+                $this->password->change($email, $newpassword);
                 header("Location: /user/{$_SESSION['user']['id']}");
 
             } else {
 
                 header('Location: /user');
             }
-
         } else {
 
             $this->setLayout('newpass')->render([
@@ -71,13 +56,7 @@ class Password extends BaseController
 
             if (!empty($user['email'])) {
 
-                $email = $user['email'];
-                $generateResetToken = uniqid('', true); // генерируем случайный токен
-                $newPassword = md5($generateResetToken); // шифруем токен
-                $this->change($email, $newPassword);
-
-                //отправляем письмо с новым паролем
-                $this->mail->sendByMail($email, $generateResetToken);
+                $this->password->send($user['email']);
 
             } else {
 

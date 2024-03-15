@@ -2,16 +2,15 @@
 
 namespace controller;
 
-use PDO;
+use model\User;
 
-class User extends BaseController
+class UserController extends BaseController
 {
-
-    private PDO $connection;
+    private User $model;
 
     public function __construct()
     {
-        $this->connection = (new Database())->getConnection();
+        $this->model = new User();
     }
 
     // регистрация пользователя
@@ -36,19 +35,9 @@ class User extends BaseController
             $this->setLayout('registration')->render([
                 'error' => 'пароли не совпадают'
             ]);
-
         } else {
 
-            $statement = $this->connection->prepare(
-                "INSERT INTO users (`id`, `email`, `password`, `full_name`, `date_created`, `is_admin`) VALUES (NULL, :email, :password, :full_name, :date, :is_admin)"
-            );
-            $statement->execute([
-                'email' => $email,
-                'password' => $password,
-                'full_name' => $fullName,
-                'date' => $date,
-                'is_admin' => $admin
-            ]);
+            $this->model->add($email, $password, $fullName, $date, $admin);
 
             if ($_SESSION['user']) {
                 header("Location: /admin/user");
@@ -66,15 +55,11 @@ class User extends BaseController
     // авторизация пользователя
     public function authorized(): void
     {
+
         $email = $_POST['email'];
         $password = md5($_POST['password']);
 
-        $statement = $this->connection->prepare("SELECT * FROM users WHERE `email` LIKE :email AND `password` LIKE :password");
-        $statement->execute([
-            'email' => $email,
-            'password' => $password
-        ]);
-        $user = $statement->fetch(PDO::FETCH_ASSOC);
+        $user = $this->model->find($email, $password);
 
         if ($user) {
 
@@ -85,6 +70,7 @@ class User extends BaseController
                 'password' => $user['password'],
                 'is_admin' => $user['is_admin']
             ];
+
             $id = $user['id'];
             header("Location: /user/$id"); // отправляем на страницу юзера с сответствующим id
         }
@@ -102,13 +88,7 @@ class User extends BaseController
     // профиль пользователя
     public function profile($id): void
     {
-
-        $statement = $this->connection->prepare("SELECT * FROM users WHERE `id` = :id");
-        $statement->execute([
-            'id' => $id,
-        ]);
-        $user = $statement->fetch(PDO::FETCH_ASSOC);
-
+        $user = $this->model->findId($id);
         $this->setLayout('profile')->render(['user' => $user]);
     }
 

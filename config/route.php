@@ -46,5 +46,4 @@ return [
     '/password/newpass' => [
         'POST' => 'Password::newpassword'
     ],
-    // ещё нужно добавить директорию
 ];

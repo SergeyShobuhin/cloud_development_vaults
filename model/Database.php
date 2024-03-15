@@ -1,6 +1,6 @@
 <?php
 
-namespace controller;
+namespace model;
 
 use PDO;
 use PDOException;

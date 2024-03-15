@@ -52,7 +52,7 @@ foreach ($urlList as $route => $methods) {
         throw new \RuntimeException('Возникла чудовищная ошибка, потерялся контроллер😱');
     }
 
-    $controllerName = '\controller\\' . $controllerName;
+    $controllerName = '\controller\\' . $controllerName . 'Controller';
     $controller = new $controllerName;
     $controller->{$controllerMethod}(...$params);  // динамическая передача параметров(...)
 

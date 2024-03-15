@@ -18,7 +18,7 @@ class BaseController
     {
         $className = get_class($this);      // Возвращает имя класса, к которому принадлежит объект
         $classNameParts = explode('\\', $className);        //Разбивает строку с помощью разделителя
-        $controllerName = lcfirst(end($classNameParts));
+        $controllerName = str_replace('Controller', '', lcfirst(end($classNameParts))); // преобразуем имя контроллера для Layout
         $layoutPath = dirname(realpath(__DIR__ . '/')) . "/layout/$controllerName/{$this->layout}.php";     //строим полный путь к форме которую обрабатыватываем
         extract($params);       //Импортирует переменные из массива в текущую таблицу символов
         require_once $layoutPath;       // подключает файл из layout
